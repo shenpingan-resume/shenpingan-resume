@@ -1,144 +1,182 @@
 /* ========================================
-   沈平安个人简历网站 - 创意个性风格
-   深色背景 + 霓虹色调
+   沈平安个人简历网站 - 古风风格
+   水墨山水 · 宣纸质感 · 古典配色
    ======================================== */
 
-/* CSS变量定义 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Ma+Shan+Zheng&display=swap');
+
 :root {
-    /* 主色调 - 霓虹风格 */
-    --primary: #00f5d4;
-    --secondary: #7b2cbf;
-    --accent: #ff6b6b;
-    --accent-alt: #fee440;
-    
-    /* 背景色 */
-    --bg-dark: #0a0a0f;
-    --bg-card: rgba(20, 20, 35, 0.8);
-    --bg-card-hover: rgba(30, 30, 50, 0.9);
-    
-    /* 文字色 */
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0b0;
-    --text-muted: #6b6b7b;
-    
-    /* 渐变 */
-    --gradient-primary: linear-gradient(135deg, #00f5d4 0%, #7b2cbf 50%, #ff6b6b 100%);
-    --gradient-glow: linear-gradient(135deg, #00f5d4, #7b2cbf);
-    --gradient-card: linear-gradient(145deg, rgba(20, 20, 35, 0.9), rgba(10, 10, 20, 0.95));
-    
-    /* 阴影 */
-    --shadow-glow: 0 0 30px rgba(0, 245, 212, 0.3);
-    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
-    
-    /* 边框 */
-    --border-glow: 1px solid rgba(0, 245, 212, 0.3);
-    
-    /* 间距 */
+    --primary: #8B4513;
+    --primary-light: #D4A574;
+    --secondary: #2F4F4F;
+    --accent: #C41E3A;
+    --accent-light: #E8A0BF;
+    --gold: #C5A55A;
+    --gold-light: #F0D68A;
+
+    --bg-paper: #F5F0E8;
+    --bg-paper-dark: #EDE5D5;
+    --bg-card: rgba(245, 240, 232, 0.9);
+    --bg-card-hover: rgba(237, 229, 213, 0.95);
+    --bg-ink: #1a1a1a;
+
+    --text-primary: #2C1810;
+    --text-secondary: #5C4033;
+    --text-muted: #8B7355;
+
+    --gradient-primary: linear-gradient(135deg, #8B4513, #C5A55A);
+    --gradient-gold: linear-gradient(135deg, #C5A55A, #F0D68A, #C5A55A);
+    --gradient-ink: linear-gradient(180deg, rgba(26,26,26,0.03), rgba(26,26,26,0.08));
+
+    --shadow-card: 0 4px 20px rgba(44, 24, 16, 0.1);
+    --shadow-hover: 0 8px 30px rgba(44, 24, 16, 0.15);
+    --shadow-ink: 0 2px 10px rgba(44, 24, 16, 0.08);
+
+    --border-classic: 1px solid #D4C5A9;
+    --border-gold: 1px solid rgba(197, 165, 90, 0.5);
+    --border-accent: 1px solid rgba(196, 30, 58, 0.3);
+
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
+
+    --font-serif: 'Noto Serif SC', 'SimSun', 'STSong', serif;
+    --font-brush: 'Ma Shan Zheng', 'STKaiti', 'KaiTi', cursive;
 }
 
-/* 基础重置 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-    font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
-    background: var(--bg-dark);
+    font-family: var(--font-serif);
+    background: var(--bg-paper);
     color: var(--text-primary);
-    line-height: 1.6;
+    line-height: 1.8;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* 背景装饰 */
+/* 宣纸纹理背景 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(139,69,19,0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(47,79,79,0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(197,165,90,0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 背景装饰 - 水墨山水 */
 .bg-decoration {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
 }
 
-.gradient-orb {
+.ink-wash {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.4;
-    animation: float 20s ease-in-out infinite;
+    filter: blur(100px);
+    opacity: 0.06;
+    animation: inkFloat 25s ease-in-out infinite;
 }
 
-.orb-1 {
-    width: 600px;
-    height: 600px;
-    background: var(--primary);
-    top: -200px;
-    right: -200px;
-    animation-delay: 0s;
+.ink-1 {
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, #2F4F4F, transparent);
+    top: -300px; right: -200px;
 }
 
-.orb-2 {
-    width: 500px;
-    height: 500px;
-    background: var(--secondary);
-    bottom: -150px;
-    left: -150px;
-    animation-delay: -7s;
+.ink-2 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, #8B4513, transparent);
+    bottom: -200px; left: -100px;
+    animation-delay: -8s;
 }
 
-.orb-3 {
-    width: 400px;
-    height: 400px;
-    background: var(--accent);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-delay: -14s;
+.ink-3 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, #1a1a1a, transparent);
+    top: 40%; left: 30%;
+    animation-delay: -16s;
 }
 
-@keyframes float {
+.cloud {
+    position: absolute;
+    background: radial-gradient(ellipse, rgba(245,240,232,0.8), transparent);
+    border-radius: 50%;
+    animation: cloudDrift 30s ease-in-out infinite;
+}
+
+.cloud-1 {
+    width: 400px; height: 120px;
+    top: 8%; left: -100px;
+    opacity: 0.5;
+}
+
+.cloud-2 {
+    width: 300px; height: 80px;
+    top: 15%; right: -50px;
+    opacity: 0.3;
+    animation-delay: -15s;
+}
+
+.mountain {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    opacity: 0.03;
+}
+
+.mountain-1 {
+    height: 300px;
+    background: linear-gradient(135deg, transparent 30%, #2F4F4F 50%, transparent 70%);
+    left: -10%;
+}
+
+.mountain-2 {
+    height: 200px;
+    background: linear-gradient(225deg, transparent 40%, #1a1a1a 55%, transparent 70%);
+    right: -10%;
+}
+
+@keyframes inkFloat {
     0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(30px, -30px) scale(1.05); }
-    50% { transform: translate(-20px, 20px) scale(0.95); }
-    75% { transform: translate(20px, 30px) scale(1.02); }
+    33% { transform: translate(20px, -15px) scale(1.03); }
+    66% { transform: translate(-15px, 10px) scale(0.97); }
+}
+
+@keyframes cloudDrift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(60px); }
 }
 
 /* 导航栏 */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: rgba(10, 10, 15, 0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: var(--border-glow);
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(15px);
+    border-bottom: var(--border-gold);
     z-index: 1000;
 }
 
 .nav-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-family: var(--font-brush);
+    font-size: 1.8rem;
+    color: var(--primary);
+    letter-spacing: 0.1em;
 }
 
 .nav-links {
@@ -151,19 +189,21 @@ body {
     color: var(--text-secondary);
     text-decoration: none;
     font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
     transition: all 0.3s ease;
     position: relative;
+    padding-bottom: 4px;
 }
 
 .nav-links a::after {
     content: '';
     position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient-primary);
-    transition: width 0.3s ease;
+    bottom: 0; left: 50%;
+    width: 0; height: 2px;
+    background: var(--gold);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
 }
 
 .nav-links a:hover {
@@ -178,12 +218,11 @@ body {
 .container {
     position: relative;
     z-index: 1;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 100px 2rem 2rem;
 }
 
-/* 通用section样式 */
 .section {
     margin-bottom: var(--spacing-xl);
 }
@@ -192,13 +231,22 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-family: var(--font-brush);
+    font-size: 2rem;
+    font-weight: 400;
     margin-bottom: var(--spacing-lg);
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
+    letter-spacing: 0.1em;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 60px; height: 2px;
+    background: var(--gradient-gold);
 }
 
 .title-icon {
@@ -223,55 +271,53 @@ body {
     position: relative;
 }
 
-.avatar-glow {
+.avatar-ring {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    background: var(--gradient-glow);
+    width: 200px; height: 200px;
+    border: 2px solid var(--gold);
     border-radius: 50%;
-    filter: blur(30px);
-    opacity: 0.6;
-    animation: pulse 3s ease-in-out infinite;
+    opacity: 0.5;
+    animation: ringPulse 4s ease-in-out infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+.avatar-ring::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: -8px; right: -8px; bottom: -8px;
+    border: 1px solid rgba(197,165,90,0.2);
+    border-radius: 50%;
+}
+
+@keyframes ringPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
 }
 
 .avatar {
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 180px; height: 180px;
     border-radius: 50%;
-    background: var(--gradient-card);
-    border: 3px solid transparent;
-    background-clip: padding-box;
+    background: var(--gradient-ink);
+    border: 3px solid var(--gold);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow-glow);
-}
-
-.avatar::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    background: var(--gradient-primary);
-    z-index: -1;
+    box-shadow: var(--shadow-card);
 }
 
 .avatar-placeholder {
-    font-size: 4rem;
-    font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-family: var(--font-brush);
+    font-size: 4.5rem;
+    color: var(--primary);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 /* Hero文字 */
@@ -286,32 +332,33 @@ body {
 .greeting {
     display: block;
     font-size: 1rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-weight: 400;
+    letter-spacing: 0.2em;
 }
 
 .name {
     display: block;
-    font-size: 3rem;
-    font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-family: var(--font-brush);
+    font-size: 3.2rem;
+    color: var(--primary);
+    letter-spacing: 0.15em;
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--primary);
+    font-size: 1.15rem;
+    color: var(--secondary);
     margin-bottom: var(--spacing-md);
     font-weight: 500;
+    letter-spacing: 0.1em;
 }
 
 .hero-description {
     color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 0.95rem;
+    line-height: 2;
     margin-bottom: var(--spacing-md);
+    text-indent: 2em;
 }
 
 .hero-tags {
@@ -322,17 +369,19 @@ body {
 }
 
 .tag {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.25rem;
     background: var(--bg-card);
-    border: var(--border-glow);
-    border-radius: 50px;
+    border: var(--border-classic);
+    border-radius: 4px;
     font-size: 0.9rem;
     color: var(--text-primary);
     transition: all 0.3s ease;
+    letter-spacing: 0.05em;
 }
 
 .tag:hover {
-    background: rgba(0, 245, 212, 0.1);
+    border-color: var(--gold);
+    box-shadow: var(--shadow-ink);
     transform: translateY(-2px);
 }
 
@@ -349,10 +398,11 @@ body {
     align-items: center;
     gap: 0.5rem;
     color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
 .contact-icon {
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 /* 社交链接 */
@@ -365,19 +415,23 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: var(--gradient-primary);
-    color: var(--bg-dark);
+    padding: 0.75rem 2rem;
+    background: var(--primary);
+    color: var(--bg-paper);
     text-decoration: none;
-    border-radius: 50px;
+    border-radius: 4px;
     font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(139,69,19,0.3);
 }
 
 .social-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 40px rgba(0, 245, 212, 0.5);
+    background: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
 /* 基本信息网格 */
@@ -389,8 +443,8 @@ body {
 
 .info-card {
     background: var(--bg-card);
-    border: var(--border-glow);
-    border-radius: 12px;
+    border: var(--border-classic);
+    border-radius: 4px;
     padding: 1rem;
     text-align: center;
     transition: all 0.3s ease;
@@ -398,21 +452,24 @@ body {
 
 .info-card:hover {
     background: var(--bg-card-hover);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
 }
 
 .info-label {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
     margin-bottom: 0.25rem;
+    letter-spacing: 0.1em;
 }
 
 .info-value {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-family: var(--font-brush);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--primary);
 }
 
 /* 求职意向 */
@@ -431,16 +488,17 @@ body {
     align-items: center;
     gap: 1rem;
     background: var(--bg-card);
-    border: var(--border-glow);
-    border-radius: 12px;
+    border: var(--border-classic);
+    border-radius: 4px;
     padding: 1.25rem;
     transition: all 0.3s ease;
 }
 
 .intent-card:hover {
     background: var(--bg-card-hover);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
 }
 
 .intent-icon {
@@ -448,14 +506,15 @@ body {
 }
 
 .intent-content h3 {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
     margin-bottom: 0.25rem;
+    letter-spacing: 0.1em;
 }
 
 .intent-content p {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-family: var(--font-brush);
+    font-size: 1.15rem;
     color: var(--primary);
 }
 
@@ -468,11 +527,9 @@ body {
 .timeline::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    left: 0; top: 0; bottom: 0;
     width: 2px;
-    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    background: linear-gradient(to bottom, var(--gold), var(--primary-light), var(--gold));
 }
 
 .timeline-item {
@@ -482,27 +539,27 @@ body {
 
 .timeline-marker {
     position: absolute;
-    left: -2rem;
-    top: 0;
-    width: 16px;
-    height: 16px;
-    background: var(--primary);
+    left: -2rem; top: 0;
+    width: 14px; height: 14px;
+    background: var(--gold);
+    border: 3px solid var(--bg-paper);
     border-radius: 50%;
-    transform: translateX(-7px);
-    box-shadow: 0 0 20px var(--primary);
+    transform: translateX(-6px);
+    box-shadow: 0 0 0 2px var(--gold);
 }
 
 .timeline-content {
     background: var(--bg-card);
-    border: var(--border-glow);
-    border-radius: 12px;
+    border: var(--border-classic);
+    border-radius: 4px;
     padding: 1.5rem;
     transition: all 0.3s ease;
 }
 
 .timeline-content:hover {
     background: var(--bg-card-hover);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
 }
 
 .timeline-header {
@@ -515,9 +572,11 @@ body {
 }
 
 .timeline-title {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-family: var(--font-brush);
+    font-size: 1.3rem;
+    font-weight: 400;
     color: var(--text-primary);
+    letter-spacing: 0.05em;
 }
 
 .timeline-company {
@@ -528,11 +587,13 @@ body {
 .timeline-date {
     display: inline-block;
     padding: 0.25rem 0.75rem;
-    background: rgba(0, 245, 212, 0.1);
-    border-radius: 50px;
+    background: rgba(197,165,90,0.1);
+    border: 1px solid rgba(197,165,90,0.3);
+    border-radius: 2px;
     font-size: 0.85rem;
-    color: var(--primary);
+    color: var(--text-muted);
     margin-bottom: 1rem;
+    letter-spacing: 0.1em;
 }
 
 .timeline-list {
@@ -545,30 +606,16 @@ body {
     padding-left: 1.25rem;
     margin-bottom: 0.5rem;
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.8;
 }
 
 .timeline-list li::before {
-    content: '▹';
+    content: '◆';
     position: absolute;
     left: 0;
-    color: var(--primary);
-}
-
-.tech-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.tech-tags span {
-    padding: 0.25rem 0.75rem;
-    background: rgba(123, 44, 191, 0.2);
-    border: 1px solid var(--secondary);
-    border-radius: 50px;
-    font-size: 0.8rem;
-    color: var(--secondary);
+    color: var(--gold);
+    font-size: 0.5rem;
+    top: 0.6em;
 }
 
 /* 教育背景 */
@@ -580,16 +627,17 @@ body {
 
 .education-card {
     background: var(--bg-card);
-    border: var(--border-glow);
-    border-radius: 16px;
+    border: var(--border-classic);
+    border-radius: 4px;
     padding: 1.5rem;
     transition: all 0.3s ease;
 }
 
 .education-card:hover {
     background: var(--bg-card-hover);
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-glow);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
 }
 
 .edu-icon {
@@ -598,10 +646,12 @@ body {
 }
 
 .edu-degree {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-family: var(--font-brush);
+    font-size: 1.2rem;
+    font-weight: 400;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
 }
 
 .edu-school {
@@ -617,15 +667,17 @@ body {
 }
 
 .edu-highlights h4 {
-    font-size: 0.9rem;
-    color: var(--accent-alt);
+    font-family: var(--font-brush);
+    font-size: 1rem;
+    color: var(--accent);
     margin: 1rem 0 0.5rem;
+    letter-spacing: 0.1em;
 }
 
 .edu-highlights p {
     color: var(--text-secondary);
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.8;
 }
 
 .activity-list {
@@ -635,7 +687,7 @@ body {
 .activity-list li {
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px dashed var(--border-classic);
 }
 
 .activity-list li:last-child {
@@ -648,6 +700,9 @@ body {
     display: block;
     color: var(--primary);
     margin-bottom: 0.5rem;
+    font-family: var(--font-brush);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
 }
 
 .activity-list p {
@@ -664,18 +719,20 @@ body {
 
 .skill-category {
     background: var(--bg-card);
-    border: var(--border-glow);
-    border-radius: 16px;
+    border: var(--border-classic);
+    border-radius: 4px;
     padding: 1.5rem;
 }
 
 .category-title {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-family: var(--font-brush);
+    font-size: 1.2rem;
+    font-weight: 400;
     color: var(--primary);
     margin-bottom: 1.25rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(0, 245, 212, 0.2);
+    border-bottom: 1px solid rgba(197,165,90,0.3);
+    letter-spacing: 0.1em;
 }
 
 .skill-items {
@@ -700,22 +757,22 @@ body {
 }
 
 .skill-level {
-    font-size: 0.85rem;
+    font-family: var(--font-brush);
+    font-size: 0.9rem;
     color: var(--primary);
-    font-weight: 500;
 }
 
 .skill-bar {
-    height: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    height: 6px;
+    background: rgba(139,69,19,0.1);
+    border-radius: 3px;
     overflow: hidden;
 }
 
 .skill-progress {
     height: 100%;
-    background: var(--gradient-primary);
-    border-radius: 10px;
+    background: var(--gradient-gold);
+    border-radius: 3px;
     width: var(--progress);
     transition: width 1s ease-out;
 }
@@ -728,17 +785,17 @@ body {
 
 .skill-tag {
     padding: 0.5rem 1rem;
-    background: rgba(0, 245, 212, 0.1);
-    border: 1px solid rgba(0, 245, 212, 0.3);
-    border-radius: 8px;
+    background: rgba(197,165,90,0.08);
+    border: 1px solid rgba(197,165,90,0.3);
+    border-radius: 4px;
     font-size: 0.9rem;
     color: var(--text-primary);
     transition: all 0.3s ease;
 }
 
 .skill-tag:hover {
-    background: rgba(0, 245, 212, 0.2);
-    border-color: var(--primary);
+    background: rgba(197,165,90,0.15);
+    border-color: var(--gold);
     transform: translateY(-2px);
 }
 
@@ -749,16 +806,28 @@ body {
 
 .evaluation-card {
     background: var(--bg-card);
-    border: var(--border-glow);
-    border-radius: 16px;
+    border: var(--border-classic);
+    border-radius: 4px;
     padding: 2rem;
+    position: relative;
+}
+
+.evaluation-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 20px;
+    font-family: var(--font-brush);
+    font-size: 5rem;
+    color: rgba(197,165,90,0.15);
+    line-height: 1;
 }
 
 .evaluation-text {
     color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 0.95rem;
+    line-height: 2;
     margin-bottom: 1.5rem;
+    text-indent: 2em;
 }
 
 .evaluation-tags {
@@ -769,16 +838,16 @@ body {
 
 .eval-tag {
     padding: 0.5rem 1rem;
-    background: rgba(255, 107, 107, 0.1);
-    border: 1px solid rgba(255, 107, 107, 0.3);
-    border-radius: 50px;
+    background: rgba(196,30,58,0.06);
+    border: 1px solid rgba(196,30,58,0.2);
+    border-radius: 4px;
     font-size: 0.9rem;
     color: var(--accent);
     transition: all 0.3s ease;
 }
 
 .eval-tag:hover {
-    background: rgba(255, 107, 107, 0.2);
+    background: rgba(196,30,58,0.12);
     transform: translateY(-2px);
 }
 
@@ -788,394 +857,128 @@ body {
     z-index: 1;
     text-align: center;
     padding: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(10, 10, 15, 0.5);
+    border-top: var(--border-gold);
+    background: rgba(245, 240, 232, 0.8);
 }
 
 .footer p {
     color: var(--text-secondary);
     margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
 }
 
 .footer-note {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
 }
 
 /* ========================================
-   移动端优化 - 手机端专用样式
+   移动端优化
    ======================================== */
 
-/* 平板端适配 */
 @media (max-width: 768px) {
     .navbar {
         padding: 0.75rem 1rem;
     }
-    
-    .nav-brand {
-        font-size: 1.25rem;
-    }
-    
-    .nav-links {
-        gap: 0.75rem;
-    }
-    
-    .nav-links a {
-        font-size: 0.85rem;
-    }
-    
-    .container {
-        padding: 70px 1rem 1rem;
-    }
-    
+    .nav-brand { font-size: 1.5rem; }
+    .nav-links { gap: 0.75rem; }
+    .nav-links a { font-size: 0.85rem; letter-spacing: 0.1em; }
+    .container { padding: 70px 1rem 1rem; }
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 1.5rem;
     }
-    
-    .avatar-wrapper {
-        margin: 0 auto;
-    }
-    
-    .avatar {
-        width: 140px;
-        height: 140px;
-    }
-    
-    .avatar-glow {
-        width: 160px;
-        height: 160px;
-    }
-    
-    .avatar-placeholder {
-        font-size: 3rem;
-    }
-    
-    .hero-text {
-        padding-top: 0;
-    }
-    
-    .name {
-        font-size: 2rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1rem;
-    }
-    
-    .hero-description {
-        font-size: 0.9rem;
-        line-height: 1.7;
-    }
-    
-    .hero-tags,
-    .contact-info,
-    .social-links {
-        justify-content: center;
-    }
-    
-    .contact-info {
-        flex-direction: column;
-        gap: 0.75rem;
-        align-items: center;
-    }
-    
-    .basic-info-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.75rem;
-    }
-    
-    .info-card {
-        padding: 0.75rem 0.5rem;
-    }
-    
-    .timeline {
-        padding-left: 1.25rem;
-    }
-    
-    .timeline-marker {
-        left: -1.25rem;
-        width: 12px;
-        height: 12px;
-    }
-    
-    .timeline-content {
-        padding: 1rem;
-    }
-    
-    .timeline-title {
-        font-size: 1rem;
-    }
-    
-    .education-grid,
-    .skills-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .section-title {
-        font-size: 1.25rem;
-    }
-    
-    .intent-cards {
-        grid-template-columns: 1fr;
-    }
-    
-    .evaluation-card {
-        padding: 1.25rem;
-    }
+    .avatar-wrapper { margin: 0 auto; }
+    .avatar { width: 140px; height: 140px; }
+    .avatar-ring { width: 160px; height: 160px; }
+    .avatar-placeholder { font-size: 3.5rem; }
+    .hero-text { padding-top: 0; }
+    .name { font-size: 2.5rem; }
+    .hero-subtitle { font-size: 1rem; }
+    .hero-description { font-size: 0.9rem; }
+    .hero-tags, .contact-info, .social-links { justify-content: center; }
+    .contact-info { flex-direction: column; gap: 0.75rem; align-items: center; }
+    .basic-info-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .info-card { padding: 0.75rem 0.5rem; }
+    .timeline { padding-left: 1.25rem; }
+    .timeline-marker { left: -1.25rem; width: 12px; height: 12px; }
+    .timeline-content { padding: 1rem; }
+    .timeline-title { font-size: 1.1rem; }
+    .education-grid, .skills-container { grid-template-columns: 1fr; gap: 1rem; }
+    .section-title { font-size: 1.6rem; }
+    .intent-cards { grid-template-columns: 1fr; }
+    .evaluation-card { padding: 1.25rem; }
 }
 
-/* 手机端适配 */
 @media (max-width: 480px) {
-    .navbar {
-        padding: 0.6rem 0.75rem;
-    }
-    
-    .nav-brand {
-        font-size: 1.1rem;
-    }
-    
-    .nav-links {
-        gap: 0.5rem;
-    }
-    
-    .nav-links a {
-        font-size: 0.75rem;
-    }
-    
-    .container {
-        padding: 60px 0.75rem 0.75rem;
-    }
-    
-    .section {
-        margin-bottom: 2rem;
-    }
-    
-    .avatar {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .avatar-glow {
-        width: 140px;
-        height: 140px;
-    }
-    
-    .avatar-placeholder {
-        font-size: 2.5rem;
-    }
-    
-    .greeting {
-        font-size: 0.9rem;
-    }
-    
-    .name {
-        font-size: 1.75rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .hero-description {
-        font-size: 0.85rem;
-    }
-    
-    .tag {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.75rem;
-    }
-    
-    .contact-item {
-        font-size: 0.85rem;
-    }
-    
-    .social-btn {
-        padding: 0.6rem 1.25rem;
-        font-size: 0.9rem;
-    }
-    
-    .basic-info-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-    }
-    
-    .info-card {
-        padding: 0.6rem 0.4rem;
-    }
-    
-    .info-label {
-        font-size: 0.7rem;
-    }
-    
-    .info-value {
-        font-size: 0.85rem;
-    }
-    
-    .intent-card {
-        padding: 1rem;
-    }
-    
-    .intent-icon {
-        font-size: 1.5rem;
-    }
-    
-    .intent-content h3 {
-        font-size: 0.8rem;
-    }
-    
-    .intent-content p {
-        font-size: 0.95rem;
-    }
-    
-    .timeline {
-        padding-left: 1rem;
-    }
-    
-    .timeline-marker {
-        left: -1rem;
-        width: 10px;
-        height: 10px;
-    }
-    
-    .timeline-content {
-        padding: 0.875rem;
-    }
-    
-    .timeline-header {
-        flex-direction: column;
-        gap: 0.25rem;
-    }
-    
-    .timeline-title {
-        font-size: 0.95rem;
-    }
-    
-    .timeline-company {
-        font-size: 0.85rem;
-    }
-    
-    .timeline-date {
-        font-size: 0.75rem;
-    }
-    
-    .timeline-list li {
-        font-size: 0.85rem;
-        padding-left: 1rem;
-    }
-    
-    .education-card {
-        padding: 1rem;
-    }
-    
-    .edu-icon {
-        font-size: 2rem;
-    }
-    
-    .edu-degree {
-        font-size: 0.95rem;
-    }
-    
-    .edu-school {
-        font-size: 0.9rem;
-    }
-    
-    .edu-date {
-        font-size: 0.8rem;
-    }
-    
-    .edu-highlights h4 {
-        font-size: 0.85rem;
-    }
-    
-    .edu-highlights p {
-        font-size: 0.8rem;
-    }
-    
-    .skill-category {
-        padding: 1rem;
-    }
-    
-    .category-title {
-        font-size: 1rem;
-    }
-    
-    .skill-name {
-        font-size: 0.85rem;
-    }
-    
-    .skill-level {
-        font-size: 0.75rem;
-    }
-    
-    .skill-bar {
-        height: 6px;
-    }
-    
-    .skill-tag {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.75rem;
-    }
-    
-    .evaluation-card {
-        padding: 1rem;
-    }
-    
-    .evaluation-text {
-        font-size: 0.85rem;
-    }
-    
-    .eval-tag {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.75rem;
-    }
-    
-    .footer {
-        padding: 1.5rem 1rem;
-    }
-    
-    .footer p {
-        font-size: 0.8rem;
-    }
-    
-    .footer-note {
-        font-size: 0.7rem;
-    }
+    .navbar { padding: 0.6rem 0.75rem; }
+    .nav-brand { font-size: 1.3rem; }
+    .nav-links { gap: 0.5rem; }
+    .nav-links a { font-size: 0.75rem; }
+    .container { padding: 60px 0.75rem 0.75rem; }
+    .section { margin-bottom: 2rem; }
+    .avatar { width: 120px; height: 120px; }
+    .avatar-ring { width: 140px; height: 140px; }
+    .avatar-placeholder { font-size: 3rem; }
+    .greeting { font-size: 0.9rem; }
+    .name { font-size: 2rem; }
+    .hero-subtitle { font-size: 0.9rem; }
+    .hero-description { font-size: 0.85rem; }
+    .tag { font-size: 0.8rem; padding: 0.4rem 0.75rem; }
+    .contact-item { font-size: 0.85rem; }
+    .social-btn { padding: 0.6rem 1.5rem; font-size: 0.9rem; }
+    .basic-info-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .info-card { padding: 0.6rem 0.4rem; }
+    .info-label { font-size: 0.7rem; }
+    .info-value { font-size: 1rem; }
+    .intent-card { padding: 1rem; }
+    .intent-icon { font-size: 1.5rem; }
+    .intent-content h3 { font-size: 0.8rem; }
+    .intent-content p { font-size: 1rem; }
+    .timeline { padding-left: 1rem; }
+    .timeline-marker { left: -1rem; width: 10px; height: 10px; }
+    .timeline-content { padding: 0.875rem; }
+    .timeline-header { flex-direction: column; gap: 0.25rem; }
+    .timeline-title { font-size: 1rem; }
+    .timeline-company { font-size: 0.85rem; }
+    .timeline-date { font-size: 0.75rem; }
+    .timeline-list li { font-size: 0.85rem; padding-left: 1rem; }
+    .education-card { padding: 1rem; }
+    .edu-icon { font-size: 2rem; }
+    .edu-degree { font-size: 1.05rem; }
+    .edu-school { font-size: 0.9rem; }
+    .edu-date { font-size: 0.8rem; }
+    .edu-highlights h4 { font-size: 0.9rem; }
+    .edu-highlights p { font-size: 0.8rem; }
+    .skill-category { padding: 1rem; }
+    .category-title { font-size: 1.05rem; }
+    .skill-name { font-size: 0.85rem; }
+    .skill-level { font-size: 0.8rem; }
+    .skill-bar { height: 5px; }
+    .skill-tag { font-size: 0.8rem; padding: 0.4rem 0.75rem; }
+    .evaluation-card { padding: 1rem; }
+    .evaluation-text { font-size: 0.85rem; }
+    .eval-tag { font-size: 0.8rem; padding: 0.4rem 0.75rem; }
+    .footer { padding: 1.5rem 1rem; }
+    .footer p { font-size: 0.8rem; }
+    .footer-note { font-size: 0.7rem; }
 }
 
-/* 超小屏幕适配 */
 @media (max-width: 360px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .name {
-        font-size: 1.5rem;
-    }
-    
-    .basic-info-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .nav-links { display: none; }
+    .name { font-size: 1.75rem; }
+    .basic-info-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* 滚动条美化 */
-::-webkit-scrollbar {
-    width: 8px;
-}
+/* 滚动条 */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-paper-dark); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-::-webkit-scrollbar-track {
-    background: var(--bg-dark);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--gradient-primary);
-    border-radius: 10px;
-}
-
-/* 选中文本样式 */
 ::selection {
-    background: rgba(0, 245, 212, 0.3);
+    background: rgba(197,165,90,0.3);
     color: var(--text-primary);
 }
